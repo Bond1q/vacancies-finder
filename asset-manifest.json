@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/vacancies-finder/static/css/main.672cd949.css",
+    "main.js": "/vacancies-finder/static/js/main.79026acd.js",
+    "static/js/787.ab714789.chunk.js": "/vacancies-finder/static/js/787.ab714789.chunk.js",
+    "index.html": "/vacancies-finder/index.html",
+    "main.672cd949.css.map": "/vacancies-finder/static/css/main.672cd949.css.map",
+    "main.79026acd.js.map": "/vacancies-finder/static/js/main.79026acd.js.map",
+    "787.ab714789.chunk.js.map": "/vacancies-finder/static/js/787.ab714789.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.672cd949.css",
+    "static/js/main.79026acd.js"
+  ]
+}
