@@ -24,6 +24,13 @@ export const getLink = (site) => {
 	return allSites[site]
 }
 
+const testVacancies = (title) => {
+	const testedTitle = title.toLowerCase();
+	const levelKeys = ['trainee', 'junior', 'intern'];
+	const technologyKeys = ['front end', 'front-end', 'frontend', 'javascript', 'js', 'react'];
+	return levelKeys.some(el => testedTitle.includes(el)) &&
+		technologyKeys.some(el => testedTitle.includes(el));
+}
 
 export const douParser = async () => {
 	const vacancies = []
@@ -73,10 +80,7 @@ export const brainanceParser = async () => {
 		const link = $(elem).find('h3').find('a').attr('href');
 		const city = 'Lviv/remote';
 		const date = ''
-		if (title.toLowerCase().includes('junior') || title.includes('trainee')) {
-			vacancies.push({ company, title, link, city, date })
-
-		}
+		if (testVacancies(title)) vacancies.push({ company, title, link, city, date })
 	});
 	return vacancies
 }
@@ -91,7 +95,6 @@ export const nixParser = async () => {
 		const link = $(elem).find('a.title').attr('href');
 		const city = $($(elem).find('div.info-list').find('div')[0]).text();
 		const date = ''
-
 		vacancies.push({ company, title, link, city, date })
 	});
 
@@ -109,9 +112,8 @@ export const globallogicParser = async () => {
 		const link = $(elem).find('p.mb-0').find('a').attr('href')
 		const city = $(elem).find('span.job-locations').text()?.replaceAll('\n', '').trim().split('|')[1];
 		const date = '';
-		const testTitile = title.toLowerCase()
-		if (testTitile.includes('front-end') || testTitile.includes('react') || testTitile.includes('javascript'))
-			vacancies.push({ company, title, link, city, date })
+		if (testVacancies(title)) vacancies.push({ company, title, link, city, date })
+
 
 	});
 	return vacancies
@@ -128,10 +130,8 @@ export const interlogicParser = async () => {
 			const link = $(elem).find('a').attr('href')
 			const city = $(elem)[0].attribs['data-category'].includes('front-end') && 'Ukraine'
 			const date = '';
-			vacancies.push({ company, title, link, city, date })
+			if (testVacancies(title)) vacancies.push({ company, title, link, city, date })
 		}
-
-
 	});
 	return vacancies
 }
@@ -147,20 +147,23 @@ export const ciklumParser = async () => {
 		const link = $(elem).find('a.vacancy-card__link').attr('href')
 		const city = $(elem).find('div.vacancy-card__offices').find('a').text()
 		const date = '';
-		const testedTitle = title.toLowerCase();
-		if (testedTitle.includes('trainee') || testedTitle.includes('junior') || testedTitle.includes('intern')) {
-			vacancies.push({ company, title, link, city, date })
-		}
+		if (testVacancies(title)) vacancies.push({ company, title, link, city, date })
 	});
 	return vacancies
 }
 
 export const dataartParser = async () => {
-	const vacancies = [{
-		company: 'DataArt', title: 'All vacancies is there',
-		link: getLink('DataArt'),
-		city: 'Ukraine', date: ''
-	}]
+	const vacancies = []
+	const res = await axios.get(getLink('DataArt'))
+	const $ = load(res.data)
+	$('div.VacancyCard ').each((i, elem) => {
+		const company = 'DataArt'
+		const title = $(elem).find('div.VacancyCard-Title').text()?.replaceAll('\n', '').trim();
+		const link = $(elem).find('a.VacancyCard-Link').attr('href')
+		const city = 'Ukraine'
+		const date = '';
+		if (testVacancies(title)) vacancies.push({ company, title, link, city, date })
+	});
 	return vacancies
 }
 
@@ -169,16 +172,12 @@ export const evoplayParser = async () => {
 	const res = await axios.get(getLink('EvoPlay'))
 	const $ = load(res.data)
 	$('li.menu-item-type-post_type').each((i, elem) => {
-
 		const company = 'EvoPlay'
 		const title = $(elem).find('a').text()?.replaceAll('\n', '').trim();
 		const link = $(elem).find('a').attr('href')
 		const city = 'Ukraine'
 		const date = '';
-		const testedTitle = title.toLowerCase();
-		if (testedTitle.includes('frontend') || testedTitle.includes('react') || testedTitle.includes('javascript')) {
-			vacancies.push({ company, title, link, city, date })
-		}
+		if (testVacancies(title)) vacancies.push({ company, title, link, city, date })
 	});
 	return vacancies
 }
@@ -194,12 +193,7 @@ export const intelliasParser = async () => {
 		const link = $(elem).attr('href')
 		const city = $(elem).find('p').text()?.replaceAll('\n', '').trim();
 		const date = '';
-		const testedTitle = title.toLowerCase();
-		if (testedTitle.includes('front-end') || testedTitle.includes('react') || testedTitle.includes('javascript')) {
-			if (testedTitle.includes('junior') || testedTitle.includes('trainee')) {
-				vacancies.push({ company, title, link, city, date })
-			}
-		}
+		if (testVacancies(title)) vacancies.push({ company, title, link, city, date })
 	});
 	return vacancies
 }
@@ -214,9 +208,7 @@ export const infopulseParser = async () => {
 		const link = $(elem).attr('href')
 		const city = 'Ukraine'
 		const date = '';
-		if (title.length > 1) {
-			vacancies.push({ company, title, link, city, date })
-		}
+		if (testVacancies(title)) vacancies.push({ company, title, link, city, date })
 
 	});
 	return vacancies
@@ -244,7 +236,7 @@ export const sigmaParser = async () => {
 			const link = $(elem).attr('href')
 			const city = 'Ukraine'
 			const date = '';
-			vacancies.push({ company, title, link, city, date })
+			if (testVacancies(title)) vacancies.push({ company, title, link, city, date })
 		});
 	}
 	parseData($Junior)
@@ -262,11 +254,7 @@ export const eleksParser = async () => {
 		const link = $(elem).attr('href')
 		const city = 'Ukraine'
 		const date = '';
-		const testedTitle = title.toLowerCase();
-		if (testedTitle.includes('junior') || testedTitle.includes('trainee')) {
-			vacancies.push({ company, title, link, city, date })
-
-		}
+		if (testVacancies(title)) vacancies.push({ company, title, link, city, date })
 	});
 	return vacancies
 }
@@ -281,13 +269,7 @@ export const allstarsitParser = async () => {
 		const link = $(elem).find('a').attr('href')
 		const city = 'Ukraine'
 		const date = '';
-		const testedTitle = title.toLowerCase();
-		if (testedTitle.includes('javascript') || testedTitle.includes('react') || testedTitle.includes('frontend')) {
-			if (testedTitle.includes('junior') || testedTitle.includes('trainee')) {
-				vacancies.push({ company, title, link, city, date })
-
-			}
-		}
+		if (testVacancies(title)) vacancies.push({ company, title, link, city, date })
 
 	});
 	return vacancies
@@ -303,12 +285,7 @@ export const sombraParser = async () => {
 		const link = $(elem).find('a').attr('href')
 		const city = 'Ukraine'
 		const date = '';
-		const testedTitle = title.toLowerCase();
-		if (testedTitle.includes('javascript') || testedTitle.includes('react') || testedTitle.includes('frontend')) {
-			if (testedTitle.includes('junior') || testedTitle.includes('trainee')) {
-				vacancies.push({ company, title, link, city, date })
-			}
-		}
+		if (testVacancies(title)) vacancies.push({ company, title, link, city, date })
 	});
 	return vacancies
 }
@@ -323,7 +300,7 @@ export const startupSoft = async () => {
 		const link = $(elem).find('a').attr('href')
 		const city = $(elem).find('div.inner').find('div.career_location').text()
 		const date = '';
-		vacancies.push({ company, title, link, city, date })
+		if (testVacancies(title)) vacancies.push({ company, title, link, city, date })
 	});
 	return vacancies
 }
