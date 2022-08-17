@@ -1,14 +1,22 @@
 import { Link, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Vacancy from './Vacancy';
 import { getLink } from './../parser/parser';
+import { useLocation } from 'react-router-dom';
 
 const VacanciesContainer = ({ site, vacanciesList }) => {
+	const id = useLocation().hash
+	useEffect(() => {
+		if (id !== '') {
+			document.querySelector(id)?.scrollIntoView({ behavior: "smooth" })
+		}
+	}, [])
+
 	return (
 		<Box id={site} p={4} px={11}>
 			<Typography color={'#212121'} fontWeight={500} variant='h2'>
-				<Link target="_blank" color="#000" underline="hover" href={getLink(site)}>{site}</Link>
+				<Link target="_blank" color="#000" underline="hover" href={getLink(site, true)}>{site}</Link>
 			</Typography>
 			{vacanciesList.length !== 0 ?
 				<Box sx={{

@@ -6,14 +6,22 @@ import { Box, Link } from '@mui/material';
 import VacanciesContainer from './VacanciesContainer';
 import CircularProgress from '@mui/material/CircularProgress';
 import ScrollToTop from "react-scroll-to-top";
+import { useLocation, useParams } from 'react-router-dom';
 
 
 const SitesContainer = () => {
 	const { sites, isLoading } = useSelector(state => state)
 	const dispatch = useDispatch()
+	// const id = useLocation().hash
 	useEffect(() => {
 		dispatch(getVacancies())
 	}, [])
+
+	// useEffect(() => {
+	// 	if (id !== '') {
+	// 		document.querySelector(id)?.scrollIntoView({ behavior: "smooth" })
+	// 	}
+	// }, [sites])
 
 	return (
 		<Box pt={4}>
