@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/vacancies-finder/static/css/main.672cd949.css",
-    "main.js": "/vacancies-finder/static/js/main.5bb32aac.js",
+    "main.js": "/vacancies-finder/static/js/main.9bca681c.js",
     "static/js/787.ab714789.chunk.js": "/vacancies-finder/static/js/787.ab714789.chunk.js",
     "index.html": "/vacancies-finder/index.html",
     "main.672cd949.css.map": "/vacancies-finder/static/css/main.672cd949.css.map",
-    "main.5bb32aac.js.map": "/vacancies-finder/static/js/main.5bb32aac.js.map",
+    "main.9bca681c.js.map": "/vacancies-finder/static/js/main.9bca681c.js.map",
     "787.ab714789.chunk.js.map": "/vacancies-finder/static/js/787.ab714789.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.672cd949.css",
-    "static/js/main.5bb32aac.js"
+    "static/js/main.9bca681c.js"
   ]
 }
